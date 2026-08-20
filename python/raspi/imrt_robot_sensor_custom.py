@@ -1,12 +1,12 @@
 # Custom code for IMRT100 robot project
 # Author: Gruppe 4; Henrik J. Larsson, Carsten Emil Ruud Walaas, Mathilde Sofie Ødegaard Gaustad, Olav Asp, Storm Malme Vierskjær
-from math import sqrt
 
 # Import some modules that we need
 import imrt_robot_serial
 import signal
 import time
 import sys
+from math import sqrt
 
 
 # We want our program to send commands at 10 Hz (10 commands per second)
@@ -76,8 +76,8 @@ while not motor_serial.shutdown_now :
         speed_motor_1, speed_motor_2 = 10 * -1/(max(dist_2, 1)) * gain, 10 * -1/dist_2 * gain * -1
 
     if dist_2 > 10:
-        speed_motor_1 = int(sqrt(min(((dist_3 * 1)/3 - 10), 0) * (dist_2 * 2)/3)) * gain
-        speed_motor_2 = int(sqrt(min(((dist_1 * 1)/3 - 10), 0) * (dist_2 * 2)/3)) * gain
+        speed_motor_1 = int(sqrt(max(((dist_3 * 1)/3 - 10), 0) * (dist_2 * 2)/3)) * gain
+        speed_motor_2 = int(sqrt(max(((dist_1 * 1)/3 - 10), 0) * (dist_2 * 2)/3)) * gain
 
 
 
