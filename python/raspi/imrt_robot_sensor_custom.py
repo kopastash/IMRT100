@@ -69,15 +69,15 @@ while not motor_serial.shutdown_now :
     # Calculate commands for each motor using sensor readings
     # In this simple example we will multiply each sensor reading
     # with a constant to obtain our commands
-    gain = 8
+    gain = 20
 
 
     if dist_2 <= 10:
         speed_motor_1, speed_motor_2 = int(10 * -1/(max(dist_2, 1)) * gain), int(10 * -1/dist_2 * gain)
 
     if dist_2 > 10:
-        speed_motor_1 = int(sqrt(max(((dist_3 - 10) * 1)/3, 0) * (dist_2 * 2)/3)) * gain
-        speed_motor_2 = int(sqrt(max(((dist_1 - 10) * 1)/3, 0) * (dist_2 * 2)/3)) * gain
+        speed_motor_1 = int(sqrt(max((dist_3 - 5) * 1, 0) * (dist_2 * 2)/3)) * gain
+        speed_motor_2 = int(sqrt(max((dist_1 - 5) * 1, 0) * (dist_2 * 2)/3)) * gain
 
 
 
