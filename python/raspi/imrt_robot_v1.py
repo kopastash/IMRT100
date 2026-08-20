@@ -99,8 +99,8 @@ while not motor_serial.shutdown_now :
         print("Obstacle!")
         stop_robot(1)
 
-        # Reverse for 0.5 second
-        drive_robot(BACKWARDS, 0.5)
+        # Reverse for 0.25 second
+        drive_robot(BACKWARDS, 0.25)
 
         # Turn set angle
         if dist_2 and dist_4 < TURN_DISTANCE:
@@ -122,6 +122,21 @@ while not motor_serial.shutdown_now :
     else:
         # If there is nothing in front of the robot it continus driving forwards
         drive_robot(FORWARDS, 0.1)
+
+        dist_2d = dist_2
+        dist_4d = dist_4
+        time.sleep(0.10)
+        if dist_2 < dist_2d:
+            motor_serial.send_command(speed, speed - 10)
+        elif dist_2 > dist_2d:
+            motor_serial.send_command(speed - 10, speed)
+        elif dist_4 > dist_4d:
+            motor_serial.send_command(speed - 10, speed)
+        elif dist_4 > dist_4d:
+            motor_serial.send_command(speed, speed - 10)
+        else:
+            break
+            
 
 
     
