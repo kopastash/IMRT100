@@ -140,14 +140,15 @@ while not motor_serial.shutdown_now :
         dist_4d = dist_4
         time.sleep(0.10)
         if dist_2 < dist_2d:
-            motor_serial.send_command(speed, speed - 10)
+            motor_serial.send_command(speed, 0)
         elif dist_2 > dist_2d:
-            motor_serial.send_command(speed - 10, speed)
+            motor_serial.send_command(0, speed)
         elif dist_4 > dist_4d:
-            motor_serial.send_command(speed - 10, speed)
+            motor_serial.send_command(0, speed)
         elif dist_4 > dist_4d:
-            motor_serial.send_command(speed, speed - 10)
+            motor_serial.send_command(speed, 0)
         else:
+            time.sleep(0.1)
             drive_robot(FORWARDS, 0.1)
             
 
