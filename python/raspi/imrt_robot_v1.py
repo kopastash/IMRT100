@@ -38,6 +38,14 @@ def drive_robot(direction, duration):
 
 
 
+def turn_robot():
+
+    direction = LEFT
+    
+    for i in range(10):
+        motor_serial.send_command(TURNING_SPEED * direction, -TURNING_SPEED * direction)
+        time.sleep(0.10)
+
 
 # We want our program to send commands at 10 Hz (10 commands per second)
 execution_frequency = 10 #Hz
@@ -104,16 +112,7 @@ while not motor_serial.shutdown_now :
         drive_robot(BACKWARDS, 0.5)
 
         # Turn set angle
-        if dist_2 and dist_4 < TURN_DISTANCE:
-            motor_serial.send_command(TURNING_SPEED * RIGHT, -TURNING_SPEED * RIGHT)
-            motor_serial.send_command(TURNING_SPEED * RIGHT, -TURNING_SPEED * RIGHT)
-        
-        elif dist_2 > dist_4:
-            motor_serial.send_command(TURNING_SPEED * LEFT, -TURNING_SPEED * LEFT)
-        
-        elif dist_2 < dist_4:
-            motor_serial.send_command(TURNING_SPEED * RIGHT, -TURNING_SPEED * RIGHT)
-            
+        turn_robot()
         
 
     else:
