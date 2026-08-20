@@ -1,6 +1,6 @@
 # Custom code for IMRT100 robot project
 # Author: Gruppe 4; Henrik J. Larsson, Carsten Emil Ruud Walaas, Mathilde Sofie Ødegaard Gaustad, Olav Asp, Storm Malme Vierskjær
-
+from math import sqrt
 
 # Import some modules that we need
 import imrt_robot_serial
@@ -70,8 +70,14 @@ while not motor_serial.shutdown_now :
     # In this simple example we will multiply each sensor reading
     # with a constant to obtain our commands
     gain = 8
-    speed_motor_1 = dist_1 * gain
-    speed_motor_2 = dist_2 * gain
+
+
+    if dist_2 < 20:
+        speed_motor_1, speed_motor_2 = dist_2 * gain * -1, dist_2 * gain * -1
+
+    if dist_2 > 20:
+        speed_motor_1 = sqrt(dist_2 * dist_1) * gain
+        speed_motor_2 = sqrt(dist_3 * dist_1) * gain
 
 
 
