@@ -38,6 +38,19 @@ def drive_robot(direction, duration):
 
 
 
+def turn_right():
+    for i in range(20):
+        motor_serial.send_command(TURNING_SPEED * RIGHT, -TURNING_SPEED * RIGHT)
+        time.sleep(0.10)
+
+
+def turn_left():
+    for i in range(20):
+        motor_serial.send_command(TURNING_SPEED * LEFT, -TURNING_SPEED * LEFT)
+        time.sleep(0.10)
+
+
+
 # We want our program to send commands at 10 Hz (10 commands per second)
 execution_frequency = 10 #Hz
 execution_period = 1. / execution_frequency #seconds
@@ -121,21 +134,22 @@ while not motor_serial.shutdown_now :
 
     else:
         # If there is nothing in front of the robot it continus driving forwards
-        drive_robot(FORWARDS, 0.1)
+        
 
         dist_2d = dist_2
         dist_4d = dist_4
         time.sleep(0.10)
         if dist_2 < dist_2d:
-            motor_serial.send_command(speed, speed - 10)
+            motor_serial.send_command(speed, 0)
         elif dist_2 > dist_2d:
-            motor_serial.send_command(speed - 10, speed)
+            motor_serial.send_command(0, speed)
         elif dist_4 > dist_4d:
-            motor_serial.send_command(speed - 10, speed)
+            motor_serial.send_command(0, speed)
         elif dist_4 > dist_4d:
-            motor_serial.send_command(speed, speed - 10)
+            motor_serial.send_command(speed, 0)
         else:
-            break
+            time.sleep(0.1)
+            drive_robot(FORWARDS, 0.1)
             
 
 
