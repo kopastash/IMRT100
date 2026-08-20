@@ -15,7 +15,7 @@ BACKWARDS = -1
 DRIVING_SPEED = 150
 TURNING_SPEED = 150
 STOP_DISTANCE = 15
-TURN_DISTANCE = 50
+TURN_DISTANCE = 30
 
 def stop_robot(duration):
 
@@ -36,15 +36,6 @@ def drive_robot(direction, duration):
         motor_serial.send_command(speed, speed)
         time.sleep(0.10)
 
-
-
-def turn_robot():
-
-    direction = LEFT
-    
-    for i in range(10):
-        motor_serial.send_command(TURNING_SPEED * direction, -TURNING_SPEED * direction)
-        time.sleep(0.10)
 
 
 # We want our program to send commands at 10 Hz (10 commands per second)
@@ -112,7 +103,20 @@ while not motor_serial.shutdown_now :
         drive_robot(BACKWARDS, 0.5)
 
         # Turn set angle
-        turn_robot()
+        if dist_2 and dist_4 < TURN_DISTANCE:
+            for i in range(20):
+                motor_serial.send_command(TURNING_SPEED * RIGHT, -TURNING_SPEED * RIGHT)
+                time.sleep(0.10)
+        
+        elif dist_2 < dist_4:
+            for i in range(10):
+                motor_serial.send_command(TURNING_SPEED * LEFT, -TURNING_SPEED * LEFT)
+                time.sleep(0.10)
+        
+        elif dist_2 > dist_4:
+            for i in range(10):
+                motor_serial.send_command(TURNING_SPEED * RIGHT, -TURNING_SPEED * RIGHT)
+                time.sleep(0.10)
         
 
     else:
