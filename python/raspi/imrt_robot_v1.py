@@ -112,7 +112,20 @@ while not motor_serial.shutdown_now :
         drive_robot(BACKWARDS, 0.5)
 
         # Turn set angle
-        turn_robot()
+        if dist_2 and dist_4 < TURN_DISTANCE:
+            for i in range(40):
+                motor_serial.send_command(TURNING_SPEED * RIGHT, -TURNING_SPEED * RIGHT)
+                time.sleep(0.10)
+        
+        elif dist_2 < dist_4:
+            for i in range(20):
+                motor_serial.send_command(TURNING_SPEED * LEFT, -TURNING_SPEED * LEFT)
+                time.sleep(0.10)
+        
+        elif dist_2 > dist_4:
+            for i in range(20):
+                motor_serial.send_command(TURNING_SPEED * RIGHT, -TURNING_SPEED * RIGHT)
+                time.sleep(0.10)
         
 
     else:
