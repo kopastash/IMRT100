@@ -73,7 +73,7 @@ while not motor_serial.shutdown_now :
 
 
     if dist_2 <= 10:
-        speed_motor_1, speed_motor_2 = in(10 * -1/(max(dist_2, 1)) * gain), int(10 * -1/dist_2 * gain)
+        speed_motor_1, speed_motor_2 = int(10 * -1/(max(dist_2, 1)) * gain), int(10 * -1/dist_2 * gain)
 
     if dist_2 > 10:
         speed_motor_1 = int(sqrt(max(((dist_3 * 1)/3 - 10), 0) * (dist_2 * 2)/3)) * gain
