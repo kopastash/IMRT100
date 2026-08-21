@@ -62,7 +62,10 @@ while not motor_serial.shutdown_now :
     dist_2 = motor_serial.get_dist_1()      # Front
     dist_3 = motor_serial.get_dist_2()      # Høyre
     dist_4 = motor_serial.get_dist_3()      # Bak
-    print("Dist 1 Venstre:", dist_1, "   Dist 2 Front:", dist_2, "   Dist 3 Høyre:", dist_3, "   Dist 4 Bak:", dist_4)
+    dist_5 = motor_serial.get_dist_3()      # Ny
+    print("Dist 1 Venstre:", dist_1, "   Dist 2 Front:", dist_2, "   Dist 3 Høyre:", dist_3, "   Dist 4 Bak:", dist_4,
+          "   Dist 5 Ny:", dist_5)
+
 
     
 
