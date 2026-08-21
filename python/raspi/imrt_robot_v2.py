@@ -6,7 +6,6 @@ import imrt_robot_serial
 import signal
 import time
 import sys
-import random
 
 LEFT = -1
 RIGHT = 1
@@ -14,8 +13,8 @@ FORWARDS = 1
 BACKWARDS = -1
 DRIVING_SPEED = 150
 TURNING_SPEED = 150
-STOP_DISTANCE = 15
-TURN_DISTANCE = 30
+STOP_DISTANCE = 20
+TURN_DISTANCE = 20
 
 def stop_robot(duration):
 
@@ -39,13 +38,14 @@ def drive_robot(direction, duration):
 
 
 def turn_right():
-    for i in range(20):
+    for i in range(10):
         motor_serial.send_command(TURNING_SPEED * RIGHT, -TURNING_SPEED * RIGHT)
         time.sleep(0.10)
 
 
+
 def turn_left():
-    for i in range(20):
+    for i in range(10):
         motor_serial.send_command(TURNING_SPEED * LEFT, -TURNING_SPEED * LEFT)
         time.sleep(0.10)
 
@@ -103,42 +103,46 @@ while not motor_serial.shutdown_now :
     dist_2 = motor_serial.get_dist_2()
     dist_3 = motor_serial.get_dist_3()
     dist_4 = motor_serial.get_dist_4()
-    print("Dist 1:", dist_1, "   Dist 2:", dist_2, "Dist 3:", dist_3, "   Dist 4:", dist_4)
+    print("FRONT:", dist_1, "RIGHT:", dist_2, "BACK:", dist_3, "LEFT:", dist_4)
 
     # Check if there is an obstacle in the way
     if dist_1 < STOP_DISTANCE:
         # There is an obstacle in front of the robot
         # First let's stop the robot for 1 second
         print("Obstacle!")
-        stop_robot(1)
+        stop_robot(0.5)
 
         # Reverse for 0.25 second
         drive_robot(BACKWARDS, 0.25)
 
         # Turn set angle
         if dist_2 and dist_4 < TURN_DISTANCE:
-            for i in range(20):
-                motor_serial.send_command(TURNING_SPEED * RIGHT, -TURNING_SPEED * RIGHT)
-                time.sleep(0.10)
+            turn_right()
+            turn_right()
         
         elif dist_2 < dist_4:
-            for i in range(10):
-                motor_serial.send_command(TURNING_SPEED * LEFT, -TURNING_SPEED * LEFT)
-                time.sleep(0.10)
+            turn_left()
         
         elif dist_2 > dist_4:
-            for i in range(10):
-                motor_serial.send_command(TURNING_SPEED * RIGHT, -TURNING_SPEED * RIGHT)
-                time.sleep(0.10)
+            turn_right()
         
 
     else:
         # If there is nothing in front of the robot it continus driving forwards
-        drive_robot(FORWARDS, 0.1)
-            
+
+        error = 20 - dist_4
+
+        pid = 2 * error
+        if error > 10:
+          pid = 50
+        if error < -10:
+          pid = -50
+
+        motor_serial.send_command(DRIVING_SPEED + pid, DRIVING_SPEED - pid)
+        time.sleep(0.10) 
 
 
-    
+  
                 
 
 
