@@ -201,8 +201,8 @@ class IMRTRobotSerial :
                     self._dist_2 = (rx_msg[2] & 0xff)
                     self._dist_3 = (rx_msg[3] & 0xff)
                     self._dist_4 = (rx_msg[4] & 0xff)
-                    self._dist_5 = (rx_msg[3] & 0xff)
-                    self._dist_6 = (rx_msg[4] & 0xff)
+                    self._dist_5 = (rx_msg[5] & 0xff)
+                    self._dist_6 = (rx_msg[6] & 0xff)
                     self._mutex.release()
   
 
