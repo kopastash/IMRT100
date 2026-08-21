@@ -11,10 +11,10 @@ LEFT = -1
 RIGHT = 1
 FORWARDS = 1
 BACKWARDS = -1
-DRIVING_SPEED = 100
+DRIVING_SPEED = 150
 TURNING_SPEED = 150
-STOP_DISTANCE = 15
-TURN_DISTANCE = 30
+STOP_DISTANCE = 20
+TURN_DISTANCE = 20
 
 def stop_robot(duration):
 
@@ -130,13 +130,13 @@ while not motor_serial.shutdown_now :
     else:
         # If there is nothing in front of the robot it continus driving forwards
 
-        error = 15 - dist_4
+        error = 20 - dist_4
 
         pid = 2 * error
-        if error > 7.5:
-          pid = 25
-        if error < -7.5:
-          pid = -25
+        if error > 10:
+          pid = 50
+        if error < -10:
+          pid = -50
 
         motor_serial.send_command(DRIVING_SPEED + pid, DRIVING_SPEED - pid)
         time.sleep(0.10) 
