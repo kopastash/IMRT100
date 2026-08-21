@@ -129,9 +129,8 @@ while not motor_serial.shutdown_now :
 
     else:
         # If there is nothing in front of the robot it continus driving forwards
-        drive_robot(FORWARDS, 0.1)
       
-        error = 100 - dist_2
+        error = 100 - dist_4
 
         pid = 2 * error
         if error > 50:
@@ -139,9 +138,8 @@ while not motor_serial.shutdown_now :
         if error < -50:
           pid = -50
 
-        for i in range(10):
-          motor_serial.send_command(DRIVING_SPEED - pid, DRIVING_SPEED + pid)
-          time.sleep(0.10) 
+        motor_serial.send_command(DRIVING_SPEED + pid, DRIVING_SPEED - pid)
+        time.sleep(0.10) 
 
 
   
