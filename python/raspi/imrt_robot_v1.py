@@ -134,22 +134,7 @@ while not motor_serial.shutdown_now :
 
     else:
         # If there is nothing in front of the robot it continus driving forwards
-        
-
-        dist_2d = dist_2
-        dist_4d = dist_4
-        time.sleep(0.10)
-        if dist_2 < dist_2d:
-            motor_serial.send_command(speed, 0)
-        elif dist_2 > dist_2d:
-            motor_serial.send_command(0, speed)
-        elif dist_4 > dist_4d:
-            motor_serial.send_command(0, speed)
-        elif dist_4 > dist_4d:
-            motor_serial.send_command(speed, 0)
-        else:
-            time.sleep(0.1)
-            drive_robot(FORWARDS, 0.1)
+        drive_robot(FORWARDS, 0.1)
             
 
 
