@@ -134,9 +134,9 @@ while not motor_serial.shutdown_now :
 
         pid = 2 * error
         if error > 7.5:
-          pid = 50
+          pid = 25
         if error < -7.5:
-          pid = -50
+          pid = -25
 
         motor_serial.send_command(DRIVING_SPEED + pid, DRIVING_SPEED - pid)
         time.sleep(0.10) 
