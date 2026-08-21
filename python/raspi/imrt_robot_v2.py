@@ -132,7 +132,14 @@ while not motor_serial.shutdown_now :
         
         elif dist_2 > dist_4:
             turn_right()
-        
+
+    elif dist_3 < TURN_DISTANCE:
+        motor_serial.send_command(DRIVING_SPEED + 10, DRIVING_SPEED - 10)
+        time.sleep(0.10) 
+
+    elif dist_5 < TURN_DISTANCE:
+        motor_serial.send_command(DRIVING_SPEED - 10, DRIVING_SPEED + 10)
+        time.sleep(0.10) 
 
     else:
         # If there is nothing in front of the robot it continus driving forwards
