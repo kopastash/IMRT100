@@ -29,6 +29,16 @@ except:
 # Start serial receive thread
 motor_serial.run()
 
+# Litt custom kode her
+
+MÅLFART = 300           # v
+AKSELBREDDE = 0.335     # L
+ROTASJONSFART = 0       # w
+
+'''
+vl = v - w*L/2
+vr = v + w*L/2
+'''
 
 # Now we will enter a loop that will keep looping until the program terminates
 # The motor_serial object will inform us when it's time to exit the program
@@ -55,7 +65,6 @@ while not motor_serial.shutdown_now :
     # Get the current time
     iteration_start_time = time.time()
 
-    # v1 n2 f3 b4 h5
 
     # Get and print readings from distance sensors
     dist_1 = motor_serial.get_dist_4()      # Venstre
@@ -74,6 +83,17 @@ while not motor_serial.shutdown_now :
     # Calculate commands for each motor using sensor readings
     # In this simple example we will multiply each sensor reading
     # with a constant to obtain our commands
+
+    distansemod = 1
+
+    if dist_3 < 50:
+        distansemod = 1 - 10/(max(dist_3, 10))
+
+    MODFART = MÅLFART * distansemod
+
+
+
+    '''
     gain = 20
 
 
@@ -83,7 +103,7 @@ while not motor_serial.shutdown_now :
     if dist_2 > 10:
         speed_motor_1 = int(sqrt(max((dist_3 - 5) * 1, 0) * (dist_2 * 2)/3)) * gain
         speed_motor_2 = int(sqrt(max((dist_1 - 5) * 1, 0) * (dist_2 * 2)/3)) * gain
-
+    '''
 
 
     # Send commands to motor
