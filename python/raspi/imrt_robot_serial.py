@@ -15,7 +15,7 @@ import signal
 # Class for communicating with the NMBU IMRT100 robot
 class IMRTRobotSerial :
 
-    MSG_SIZE = 10
+    MSG_SIZE = 12
 
     # Constructor
     def __init__(self):
@@ -30,6 +30,8 @@ class IMRTRobotSerial :
         self._dist_2 = 255
         self._dist_3 = 255
         self._dist_4 = 255
+        self._dist_5 = 255
+        self._dist_6 = 255
         
         # Create an event for signaling threads when its time terminate the program
         self._run_event = threading.Event()
@@ -132,7 +134,7 @@ class IMRTRobotSerial :
 
 
 
-    # Returns latest measurement from distance sensor 2
+    # Returns latest measurement from distance sensor 3
     def get_dist_3(self):
         
         self._mutex.acquire()
@@ -144,13 +146,35 @@ class IMRTRobotSerial :
 
 
 
-    # Returns latest measurement from distance sensor 2
+    # Returns latest measurement from distance sensor 4
     def get_dist_4(self):
         
         self._mutex.acquire()
         dist = self._dist_4
         self._mutex.release()
         
+        return dist
+
+
+
+    # Returns latest measurement from distance sensor 4
+    def get_dist_5(self):
+
+        self._mutex.acquire()
+        dist = self._dist_5
+        self._mutex.release()
+
+        return dist
+
+
+
+    # Returns latest measurement from distance sensor 4
+    def get_dist_6(self):
+
+        self._mutex.acquire()
+        dist = self._dist_6
+        self._mutex.release()
+
         return dist
 
 
@@ -177,6 +201,8 @@ class IMRTRobotSerial :
                     self._dist_2 = (rx_msg[2] & 0xff)
                     self._dist_3 = (rx_msg[3] & 0xff)
                     self._dist_4 = (rx_msg[4] & 0xff)
+                    self._dist_5 = (rx_msg[3] & 0xff)
+                    self._dist_6 = (rx_msg[4] & 0xff)
                     self._mutex.release()
   
 
