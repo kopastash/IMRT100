@@ -103,8 +103,15 @@ while not motor_serial.shutdown_now :
     dist_2 = motor_serial.get_dist_2()
     dist_3 = motor_serial.get_dist_3()
     dist_4 = motor_serial.get_dist_4()
-    print("FRONT:", dist_1, "RIGHT:", dist_2, "BACK:", dist_3, "LEFT:", dist_4)
+    dist_5 = motor_serial.get_dist_5()
+    print("FRONT:", dist_1, "RIGHT:", dist_2, "NEW2:", dist_3, "LEFT:", dist_4, "NEW:", dist_5)
 
+    LEFT = dist_4
+    LEFT45 = dist_3
+    FRONT = dist_1
+    RIGHT45 = dist_5
+    RIGHT = dist_2
+    
     # Check if there is an obstacle in the way
     if dist_1 < STOP_DISTANCE:
         # There is an obstacle in front of the robot
