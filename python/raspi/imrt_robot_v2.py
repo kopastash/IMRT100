@@ -123,7 +123,7 @@ while not motor_serial.shutdown_now :
         drive_robot(BACKWARDS, 0.25)
 
         # Turn set angle
-        if dist_2 and dist_4 < TURN_DISTANCE:
+        if dist_2 and dist_4 < TURN_DISTANCE / 2:
             turn_right()
             turn_right()
         
@@ -134,19 +134,19 @@ while not motor_serial.shutdown_now :
             turn_right()
 
     elif dist_3 < TURN_DISTANCE:
-        motor_serial.send_command(DRIVING_SPEED + 10, DRIVING_SPEED - 10)
+        motor_serial.send_command(DRIVING_SPEED - 50, DRIVING_SPEED + 20)
         time.sleep(0.10) 
 
     elif dist_5 < TURN_DISTANCE:
-        motor_serial.send_command(DRIVING_SPEED - 10, DRIVING_SPEED + 10)
+        motor_serial.send_command(DRIVING_SPEED + 20, DRIVING_SPEED - 50)
         time.sleep(0.10) 
 
     else:
         # If there is nothing in front of the robot it continus driving forwards
 
-        error = 20 - dist_4
+        error = 15 - dist_4
 
-        pid = 2 * error
+        pid = 2 * int(100 / error)
         if error > 10:
           pid = 50
         if error < -10:
