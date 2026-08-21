@@ -55,16 +55,18 @@ while not motor_serial.shutdown_now :
     # Get the current time
     iteration_start_time = time.time()
 
-
+    # v1 n2 f3 b4 h5
 
     # Get and print readings from distance sensors
     dist_1 = motor_serial.get_dist_4()      # Venstre
-    dist_2 = motor_serial.get_dist_1()      # Front
-    dist_3 = motor_serial.get_dist_2()      # Høyre
-    dist_4 = motor_serial.get_dist_3()      # Bak
-    dist_5 = motor_serial.get_dist_5()      # Ny
+    dist_2 = motor_serial.get_dist_5()      # Venstre C
+    dist_3 = motor_serial.get_dist_1()      # Front
+    dist_4 = motor_serial.get_dist_3()      # Høyre C
+    dist_5 = motor_serial.get_dist_2()      # Høyre
 
-    print("Dist 1 V:", dist_1, "    Dist 2 F:", dist_2, "   Dist 3 H:", dist_3, "   Dist 4 B:", dist_4, "   Dist 5 N:", dist_5,)
+
+
+    print("Dist 1 V:", dist_1, "    Dist 2 VC:", dist_2, "   Dist 3 F:", dist_3, "   Dist 4 HC:", dist_4, "   Dist 5 H:", dist_5)
 
 
     
