@@ -208,8 +208,8 @@ void loop()
     tx_msg[2] = (sonic_2) & 0xff;
     tx_msg[3] = (sonic_3) & 0xff;
     tx_msg[4] = (sonic_4) & 0xff;
-    tx_msg[5] = (sonic_3) & 0xff;
-    tx_msg[6] = (sonic_4) & 0xff;
+    tx_msg[5] = (sonic_5) & 0xff;
+    tx_msg[6] = (sonic_6) & 0xff;
     tx_msg[MSG_SIZE - 1] = '\n';
 
     short crc = crc16(tx_msg, MSG_SIZE - 3);
