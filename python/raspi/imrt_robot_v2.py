@@ -104,12 +104,12 @@ while not motor_serial.shutdown_now :
     dist_3 = motor_serial.get_dist_3()
     dist_4 = motor_serial.get_dist_4()
     dist_5 = motor_serial.get_dist_5()
-    print("FRONT:", dist_1, "RIGHT:", dist_2, "LEFT_45:", dist_3, "LEFT:", dist_4, "RIGHT_45:", dist_5)
+    print("FRONT:", dist_1, "RIGHT:", dist_2, "RIGHT_45:", dist_3, "LEFT:", dist_4, "LEFT_45:", dist_5)
 
     LEFT = dist_4
-    LEFT_45 = dist_3
+    LEFT_45 = dist_5
     FRONT = dist_1
-    RIGHT_45 = dist_5
+    RIGHT_45 = dist_3
     RIGHT = dist_2
     
     # Check if there is an obstacle in the way
