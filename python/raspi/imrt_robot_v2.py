@@ -6,7 +6,6 @@ import imrt_robot_serial
 import signal
 import time
 import sys
-import random
 
 LEFT = -1
 RIGHT = 1
