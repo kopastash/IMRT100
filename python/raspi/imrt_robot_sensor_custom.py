@@ -110,7 +110,7 @@ while not motor_serial.shutdown_now :
 
     MODFART = int(MÅLFART * distansemod)
 
-    normalized = (min(dist_5, 20) - 0) / (20 - 0)
+    normalized = 2 * (min(dist_5, 20) - 0) / (20 - 0) - 1
 
     svingfart = 1
 
