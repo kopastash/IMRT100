@@ -141,7 +141,7 @@ while not motor_serial.shutdown_now :
     # Send commands to motor
     # Max speed is 400.
     # E.g.a command of 500 will result in the same speed as if the command was 400
-    motor_serial.send_command(speed_motor_1, speed_motor_2)
+    # motor_serial.send_command(speed_motor_1, speed_motor_2)
 
 
 
