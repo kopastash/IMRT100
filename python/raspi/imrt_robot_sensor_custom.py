@@ -110,14 +110,14 @@ while not motor_serial.shutdown_now :
 
     MODFART = int(MÅLFART * distansemod)
 
-    normalized = 2 * (min(dist_5, 20) - 0) / (20 - 0)
+    normalized = (min(dist_5, 20) - 0) / (20 - 0)
 
     svingfart = 1
 
     if frontsensor < 10 & dist_5 < 20 & dist_1 < 20:
         roter(VENSTRE, 0.5)
     else:
-        motor_serial.send_command(MODFART, int(MODFART * normalized))
+        motor_serial.send_command(MODFART, int(MODFART - (MODFART * normalized)))
 
 
 
