@@ -31,14 +31,32 @@ motor_serial.run()
 
 # Litt custom kode her
 
-MÅLFART = 300           # v
+MÅLFART = 100           # v
 AKSELBREDDE = 0.335     # L
 ROTASJONSFART = 0       # w
+
+VENSTRE = -1
+HØYRE = 1
+FREM = 1
+BAK = -1
+STOPPAVSTAND = 25
 
 '''
 vl = v - w*L/2
 vr = v + w*L/2
 '''
+
+def roter(retning, varighet):
+    speed = MODFART * retning
+    iterations = int(varighet * execution_frequency)
+
+    for i in range(iterations):
+        motor_serial.send_command(speed/3 * retning, -speed/3 * retning)
+        time.sleep(0.10)
+
+def kjør_frem(hastighet, rotasjon):
+    motor_serial.send_command(hastighet + (rotasjon * AKSELBREDDE)/2, hastighet - (rotasjon * AKSELBREDDE)/2)
+
 
 # Now we will enter a loop that will keep looping until the program terminates
 # The motor_serial object will inform us when it's time to exit the program
@@ -85,11 +103,25 @@ while not motor_serial.shutdown_now :
     # with a constant to obtain our commands
 
     distansemod = 1
+    frontsensor = min(dist_2, dist_3, dist_4)
 
-    if dist_3 < 50:
-        distansemod = 1 - 10/(max(dist_3, 10))
+    if frontsensor < 50:
+        distansemod = 1 - 10/(max(frontsensor, 10))
 
     MODFART = MÅLFART * distansemod
+
+    normalized = 2 * (min(dist_5, 20) - 0) / (20 - 0)
+
+    svingfart = 1
+
+    if frontsensor < 10 & dist_5 < 20 & dist_1 < 20:
+        roter(VENSTRE, 0.5)
+    else:
+        motor_serial.send_command(MODFART, MODFART * normalized)
+
+
+
+
 
 
 
