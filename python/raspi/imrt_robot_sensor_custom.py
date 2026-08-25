@@ -51,7 +51,7 @@ def roter(retning, varighet):
     iterations = int(varighet * execution_frequency)
 
     for i in range(iterations):
-        motor_serial.send_command(int(speed * retning), int(speed * -retning))
+        motor_serial.send_command(int(speed * -retning), int(speed * retning))
         time.sleep(0.10)
 
 def kjør_frem(hastighet, rotasjon):
@@ -114,7 +114,7 @@ while not motor_serial.shutdown_now :
 
     svingfart = 1
 
-    if frontsensor < 10 & dist_5 < 20:
+    if min(frontsensor) < 10 & dist_5 < 20:
         roter(VENSTRE, 0.5)
         print("Roterer")
     else:
