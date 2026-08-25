@@ -108,12 +108,12 @@ while not motor_serial.shutdown_now :
 
     svingfart = 1
 
-    if frontsensor < 15 and (dist_5 or dist_1) < 30 and ((dist_5 - dist_1 > 10) or (dist_1 - dist_5 > 10)):
+    if frontsensor < 15 and (dist_5 or dist_1) < 30 and abs(dist_5 - dist_1) > 10:
         retning = int(copysign(1, dist_1-dist_5)) # Gir 1 eller -1
         roter(retning, 0.5)
         print("Roterer")
     else:
-        motor_serial.send_command(int(MODFART + (MODFART * normalized * 0.8)), int(MODFART - (MODFART * normalized * 0.7)))
+        motor_serial.send_command(int(MODFART + (MODFART * normalized * 0.7)), int(MODFART - (MODFART * normalized * 0.7)))
 
 
 
