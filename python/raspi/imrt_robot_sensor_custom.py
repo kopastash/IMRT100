@@ -47,6 +47,7 @@ vr = v + w*L/2
 '''
 
 def roter(retning, varighet):
+    print("Trigger roter")
     speed = MÅLFART/3 * retning
     iterations = int(varighet * execution_frequency)
 
@@ -108,10 +109,11 @@ while not motor_serial.shutdown_now :
 
     svingfart = 1
 
+
     if frontsensor < 15 and (dist_5 or dist_1) < 30 and abs(dist_5 - dist_1) > 10:
+        print("Roterer")
         retning = int(copysign(1, dist_1-dist_5)) # Gir 1 eller -1
         roter(retning, 0.5)
-        print("Roterer")
     else:
         motor_serial.send_command(int(MODFART + (MODFART * normalized * 0.7)), int(MODFART - (MODFART * normalized * 0.7)))
 
