@@ -111,7 +111,7 @@ while not motor_serial.shutdown_now :
 
 
     #if frontsensor < 15 and (dist_5 or dist_1) < 30 and abs(dist_5 - dist_1) > 10:
-    if dist_1 < 30:
+    if dist_1 < 30 or dist_5 < 30:
 
         print("Roterer")
         retning = int(copysign(1, dist_1-dist_5)) # Gir 1 eller -1
