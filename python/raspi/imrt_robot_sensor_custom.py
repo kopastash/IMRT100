@@ -31,7 +31,7 @@ motor_serial.run()
 
 # Litt custom kode her
 
-MÅLFART = 100           # v
+MÅLFART = 200           # v
 AKSELBREDDE = 0.335     # L
 ROTASJONSFART = 0       # w
 
@@ -51,7 +51,7 @@ def roter(retning, varighet):
     iterations = int(varighet * execution_frequency)
 
     for i in range(iterations):
-        motor_serial.send_command(speed/3 * retning, -speed/3 * retning)
+        motor_serial.send_command(int(speed/3 * retning), int(-speed/3 * retning))
         time.sleep(0.10)
 
 def kjør_frem(hastighet, rotasjon):
@@ -110,11 +110,11 @@ while not motor_serial.shutdown_now :
 
     MODFART = int(MÅLFART * distansemod)
 
-    normalized = 2 * (min(dist_5, 20) - 0) / (20 - 0) - 1
+    normalized = (2 * (min(dist_5, 20) - 0) / (20 - 0) - 1) * 0.9
 
     svingfart = 1
 
-    if frontsensor < 10 & dist_5 < 20 & dist_1 < 20:
+    if frontsensor < 10 & dist_5 < 20:
         roter(VENSTRE, 0.5)
     else:
         motor_serial.send_command(MODFART, int(MODFART - (MODFART * normalized)))
