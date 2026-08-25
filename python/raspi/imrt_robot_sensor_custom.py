@@ -47,12 +47,12 @@ vr = v + w*L/2
 '''
 
 def roter(retning, varighet):
-    print("Trigger roter")
-    speed = MÅLFART/3 * retning
+    print("Trigger roter, retningen er:", retning)
+    speed = MÅLFART/3
     iterations = int(varighet * execution_frequency)
 
     for i in range(iterations):
-        motor_serial.send_command(int(speed * -retning), int(speed * retning))
+        motor_serial.send_command(int(speed * retning), int(speed * -retning))
         time.sleep(0.10)
 
 def kjør_frem(hastighet, rotasjon):
