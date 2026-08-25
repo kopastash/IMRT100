@@ -92,12 +92,6 @@ while not motor_serial.shutdown_now :
     dist_5 = motor_serial.get_dist_2()      # Høyre
 
 
-
-    print("Dist 1 V:", dist_1, "    Dist 2 VC:", dist_2, "   Dist 3 F:", dist_3, "   Dist 4 HC:", dist_4, "   Dist 5 H:", dist_5)
-
-
-    
-
     # Calculate commands for each motor using sensor readings
     # In this simple example we will multiply each sensor reading
     # with a constant to obtain our commands
@@ -114,7 +108,7 @@ while not motor_serial.shutdown_now :
 
     svingfart = 1
 
-    if min(frontsensor) < 10 & dist_5 < 20:
+    if frontsensor < 10 & dist_5 < 20:
         roter(VENSTRE, 0.5)
         print("Roterer")
     else:
@@ -122,9 +116,7 @@ while not motor_serial.shutdown_now :
 
 
 
-
-
-
+    print("1 V:", dist_1, "    2 VC:", dist_2, "   3 F:", dist_3, "   4 HC:", dist_4, "   5 H:", dist_5, "   FS:", frontsensor)
 
     '''
     gain = 20
