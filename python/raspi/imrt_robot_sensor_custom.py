@@ -108,11 +108,11 @@ while not motor_serial.shutdown_now :
 
     svingfart = 1
 
-    if frontsensor < 10 and dist_5 < 20:
+    if frontsensor < 20 and dist_5 < 30:
         roter(VENSTRE, 0.5)
         print("Roterer")
     else:
-        motor_serial.send_command(int(MODFART + (MODFART * normalized * 0.8)), int(MODFART - (MODFART * normalized * 0.8)))
+        motor_serial.send_command(int(MODFART + (MODFART * normalized * 0.8)), int(MODFART - (MODFART * normalized * 0.7)))
 
 
 
