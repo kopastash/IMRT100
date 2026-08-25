@@ -6,7 +6,7 @@ import imrt_robot_serial
 import signal
 import time
 import sys
-from math import sqrt
+from math import sqrt,copysign
 
 
 # We want our program to send commands at 10 Hz (10 commands per second)
@@ -31,7 +31,7 @@ motor_serial.run()
 
 # Litt custom kode her
 
-MÅLFART = 200           # v
+MÅLFART = 250           # v
 AKSELBREDDE = 0.335     # L
 ROTASJONSFART = 0       # w
 
@@ -100,7 +100,7 @@ while not motor_serial.shutdown_now :
     frontsensor = min(dist_2, dist_3, dist_4)
 
     if frontsensor < 50:
-        distansemod = 1 - 10/(max(frontsensor, 11))
+        distansemod = 1 - 10/(max(frontsensor, 15))
 
     MODFART = int(MÅLFART * distansemod)
 
@@ -108,8 +108,9 @@ while not motor_serial.shutdown_now :
 
     svingfart = 1
 
-    if frontsensor < 20 and dist_5 < 30:
-        roter(VENSTRE, 0.5)
+    if frontsensor < 15 and (dist_5 or dist_1) < 30 and ((dist_5 - dist_1 > 10) or (dist_1 - dist_5 > 10)):
+        retning = int(copysign(1, dist_1-dist_5)) # Gir 1 eller -1
+        roter(retning, 0.5)
         print("Roterer")
     else:
         motor_serial.send_command(int(MODFART + (MODFART * normalized * 0.8)), int(MODFART - (MODFART * normalized * 0.7)))
