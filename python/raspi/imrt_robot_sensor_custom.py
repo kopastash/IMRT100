@@ -31,15 +31,17 @@ motor_serial.run()
 
 # Litt custom kode her
 
-MÅLFART = 250           # v
+MÅLFART = 250           # v         # Denne linjen kan fint eksperimenteres med
 AKSELBREDDE = 0.335     # L
 ROTASJONSFART = 0       # w
 
+'''
 VENSTRE = -1
 HØYRE = 1
 FREM = 1
 BAK = -1
 STOPPAVSTAND = 25
+'''
 
 '''
 vl = v - w*L/2
@@ -48,16 +50,17 @@ vr = v + w*L/2
 
 def roter(retning, varighet):
     print("Trigger roter, retningen er:", retning)
-    speed = MÅLFART/3
+    speed = MÅLFART/3                                   # Denne linjen kan fint eksperimenteres med
     iterations = int(varighet * execution_frequency)
 
     for i in range(iterations):
         motor_serial.send_command(int(speed * -retning), int(speed * retning))
         time.sleep(0.10)
 
+'''
 def kjør_frem(hastighet, rotasjon):
     motor_serial.send_command(hastighet + (rotasjon * AKSELBREDDE)/2, hastighet - (rotasjon * AKSELBREDDE)/2)
-
+'''
 
 # Now we will enter a loop that will keep looping until the program terminates
 # The motor_serial object will inform us when it's time to exit the program
@@ -93,23 +96,22 @@ while not motor_serial.shutdown_now :
     dist_5 = motor_serial.get_dist_2()      # Høyre
 
 
-    # Calculate commands for each motor using sensor readings
-    # In this simple example we will multiply each sensor reading
-    # with a constant to obtain our commands
 
     distansemod = 1
-    frontsensor = min(dist_2, dist_3, dist_4)
+    frontsensor = min(dist_2, dist_3, dist_4)   # Henter ut den minste sensorverdien.
 
+    # Eksperimenter med denne
+    # Reduserer hastigheten når roboten kommer for nærme noe i front
     if frontsensor < 50:
         distansemod = 1 - 10/(max(frontsensor, 15))
 
     MODFART = int(MÅLFART * distansemod)
 
-    normalized = (2 * (min(dist_5, 20) - 0) / (20 - 0) - 1)
+    normalized = (2 * (min(dist_5, 20) - 0) / (20 - 0) - 1)     # Normaliserer sensorverider til mellom +1 og -1
 
-    svingfart = 1
+    svingfart = 1 # Gjør ikke noe per nå
 
-
+    # Alt under kan fint eksperimenteres med.
     if frontsensor < 15 and (dist_1 < 30 or dist_5 < 30) and abs(dist_5 - dist_1) > 10:
         print("Roterer")
         retning = int(copysign(1, dist_1-dist_5)) # Gir 1 eller -1
