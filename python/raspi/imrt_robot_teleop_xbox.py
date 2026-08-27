@@ -45,8 +45,8 @@ def main():
             print(vx, wz)
 
             # calculate motor commands
-            v1 = (vx - ROBOT_WIDTH * wz / 2) * 200
-            v2 = (vx + ROBOT_WIDTH * wz / 2) * 200
+            v1 = (vx - ROBOT_WIDTH * wz / 2) * 300
+            v2 = (vx + ROBOT_WIDTH * wz / 2) * 300
 
 
             print ("HEI")
